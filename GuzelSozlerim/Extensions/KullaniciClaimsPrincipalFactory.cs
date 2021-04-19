@@ -1,0 +1,24 @@
+﻿using GuzelSozlerim.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
+using System.Security.Claims;
+using System.Threading.Tasks;
+
+namespace GuzelSozlerim.Extensions
+{
+    //buralarda eklemelerde bulunduk
+    public class KullaniciClaimsPrincipalFactory : UserClaimsPrincipalFactory<Kullanici, IdentityRole>
+    {
+        public KullaniciClaimsPrincipalFactory(UserManager<Kullanici> userManager, RoleManager<IdentityRole> roleManager, IOptions<IdentityOptions> optionsAccessor)
+            : base(userManager, roleManager, optionsAccessor)
+        {
+        }
+
+        protected override async Task<ClaimsIdentity> GenerateClaimsAsync(Kullanici user)
+        {
+            var identity = await base.GenerateClaimsAsync(user);
+            identity.AddClaim(new Claim("GorunenAd", user.GorunenAd));
+            return identity;
+        }
+    }
+}
