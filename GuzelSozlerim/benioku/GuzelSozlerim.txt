@@ -1,0 +1,33 @@
+-kullanıcı class oluşturduk :IdentityUser ekledik
+-db contexte IdentityDbContext yanına <kullanici> ekledik
+-Startup da configureServices de <ıdentitiyuser> kullanici olarak değiştirdik
+-appseingden connectionstring adını değiştirdik
+-add-migration Inital -o Data/Migrations
+datanın içine migration oluşturup update database dedik
+-Shared de viewImports da @using GuzelSozlerim.Data ekledik
+-Shared login partial <ıdentityuser> yukardaki kullanıcı olarak değiştirdik
+-Gorunen ad yok hatası çözümü
+-proje sağ tık new scaffold item sağdan identty ekledik register seçtik
+- areas account register aç klasına gir emailin üstüne görünen ad ekle  [Required]
+  [Display(Name = "Görünen Ad")]           public string GorunenAd { get; set; }
+-register formda e maili çoğaltıp gorunen adı ekledik. kayıt olurken kullanıcı adı eklemek için
+-Aşağıda aynı yerde OnPostAsync içine emailden sonra , GorunenAd=Input.GorunenAd  ekiyoruz.
+-startup da services.AddDefaultIdentity<Kullanici>(options => options.SignIn.RequireConfirmedAccount = false) true false çektik
+-yeni bi klasör oluşturdukk Extensions adında onun içine class oluturduk 
+https://www.tryingtocode.co.uk/posts/2020/04/12-adding-claims-to-dotnet-core
+linkden yararlanarak classı oluşturup class ismini  KullaniciClaimsPrincipalFactory
+koyduk applicationUser ları kullanici olarak değiştirdik ApplicationRole ları IdentityRole
+ile değiştirdik. aşada generateClaimsAsync içine identity.AddClaim(new Claim("GorunenAd", user.GorunenAd )); düzenledik.
+-strartup a geldik configure services application dbcontextden sonra
+.AddClaimsPrincipalFactory<KullaniciClaimsPrincipalFactory>(); ekleyeceğiz
+-Startup da dbcontext üstüne .AddRoles<IdentityRole>() ekliyeceğiz.
+-login olan kişinin adını yazmak için
+-views shared login partial yukarıya @using System.Security.Claims @{vvar gorunenAd = User.FindFirstValue("GorunenAd");} eklicez.
+-Hellonun olduğu yere merhaba yazıp gorunenAd ekliyoruz.
+- https://github.com/dotnet-architecture/eShopOnWeb/blob/master/src/Web/Program.cs
+
+-Programcs de main 2 ye böldük var host = CreateHostBuilder(args).Build(); host.Run();
+-linkdeki gibi yapcaz.
+-Data seed clası eklicez public static async Task SeedRollerVeKullanicilarAsync(ApplicationDbContext dbContext,RoleManager<IdentityRole> roleManager,UserManager<Kullanici> userManager) {}
+içini  
+- Layout admin girdiğinde gözükmesi için bir if blogu oluşturduk       

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace GuzelSozlerim.Extensions
 {
     //buralarda eklemelerde bulunduk
+   // https://www.tryingtocode.co.uk/posts/2020/04/12-adding-claims-to-dotnet-core
     public class KullaniciClaimsPrincipalFactory : UserClaimsPrincipalFactory<Kullanici, IdentityRole>
     {
         public KullaniciClaimsPrincipalFactory(UserManager<Kullanici> userManager, RoleManager<IdentityRole> roleManager, IOptions<IdentityOptions> optionsAccessor)

@@ -36,7 +36,7 @@ namespace GuzelSozlerim
             services.AddDefaultIdentity<Kullanici>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddClaimsPrincipalFactory<KullaniciClaimsPrincipalFactory>();
+                .AddClaimsPrincipalFactory<KullaniciClaimsPrincipalFactory>();//ekledik*-*-*-*
             services.AddControllersWithViews();
         }
 
