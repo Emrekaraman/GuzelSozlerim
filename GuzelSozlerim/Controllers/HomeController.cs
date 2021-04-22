@@ -27,11 +27,10 @@ namespace GuzelSozlerim.Controllers
 
         public IActionResult Index()
         {
-            return View(_db.GuzelSozler.Include(x => x.Begenenler).ToList());
-
+            return View(_db.GuzelSozler.Include("Begenenler.Kullanici").ToList());
         }
 
-        [Authorize]//sadece üyeler kullanabilir
+        [Authorize] // Sadece üyeler kullanabilir
         [HttpPost]
         public IActionResult BegeniDurumunuGuncelle(int id, bool begenildiMi)
         {
@@ -57,11 +56,12 @@ namespace GuzelSozlerim.Controllers
                 _db.SaveChanges();
                 return new EmptyResult();
             }
-            catch (Exception )
+            catch (Exception)
             {
                 return BadRequest();
             }
         }
+
 
         public IActionResult Privacy()
         {

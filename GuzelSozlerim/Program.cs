@@ -1,6 +1,7 @@
 using GuzelSozlerim.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -9,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace GuzelSozlerim
 {
@@ -20,7 +22,8 @@ namespace GuzelSozlerim
 
             using (var scope = host.Services.CreateScope())
             {
-              
+                var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                dbContext.Database.Migrate();
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<Kullanici>>();
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
                 await DataSeed.SeedRollerVeKullanicilarAsync(roleManager, userManager);
