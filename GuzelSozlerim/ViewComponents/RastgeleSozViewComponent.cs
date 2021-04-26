@@ -25,7 +25,7 @@ namespace GuzelSozlerim.ViewComponents
             }
             int adet = _db.GuzelSozler.Count();
             int indeks = new Random().Next(adet);
-            GuzelSoz soz = await _db.GuzelSozler.Skip(indeks).FirstAsync();
+            GuzelSoz soz = await _db.GuzelSozler.Skip(indeks).FirstOrDefaultAsync();
             return View(soz);
         }
     }
